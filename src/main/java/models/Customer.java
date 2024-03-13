@@ -1,15 +1,29 @@
+package models;
+
 import java.util.Objects;
+import  Exception.*;
+import Validation.*;
+
 
 public class Customer {
     private static int id;
     private String name;
     private String email;
 
-
-    public static Customer createCustomer(int id, String name, String email) {
+    static CustomerValidation  customerValidation=new CustomerValidation();
+    public static Customer createCustomer(int id, String name, String email) throws CustomerValidationException {
         if (id <= 0) {
-            throw new IllegalArgumentException("Invalid or duplicate ID");
+            throw new InvalidCustomerIdException("Invalid Id: " + id);
         }
+
+        if (!customerValidation.isValidName(name)) {
+            throw new InvalidCustomerNameException("Invalid Name: " + name);
+        }
+
+        if (!customerValidation.isValidEmail(email)) {
+            throw new InvalidEmailException("Invalid Email: " + email);
+        }
+
         return new Customer(id, name, email);
     }
 
@@ -19,7 +33,7 @@ public class Customer {
         this.email = email;
     }
 
-    public static int getId() {
+    public static int  getId() {
         return id;
     }
 
@@ -43,4 +57,9 @@ public class Customer {
     public int hashCode() {
         return Objects.hash(id, name, email);
     }
+
+
+
 }
+
+

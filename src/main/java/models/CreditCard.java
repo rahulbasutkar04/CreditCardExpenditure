@@ -1,7 +1,10 @@
+package models;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class CreditCard {
     private static List<Map<List<Integer>, List<String>>> dataList = new ArrayList<>();
@@ -41,3 +44,4 @@ public class CreditCard {
         dataList.clear();
     }
 }
+

@@ -1,3 +1,5 @@
+package models;
+
 import java.time.Month;
 
 public class Transaction {
@@ -13,7 +15,7 @@ public class Transaction {
 
     public static boolean perform(String grocery, double amount, Month month) {
 
-      
+
       return true;
     }
 }

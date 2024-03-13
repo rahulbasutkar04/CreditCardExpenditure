@@ -1,13 +1,20 @@
+package models;
+
 import java.time.Month;
 
-class CreditCardManager {
+import models.CreditCard;
+import models.Customer;
+import Exception.*;
+import models.Transaction;
+
+public class CreditCardManager {
     private static CreditCard creditCard; // Assuming CreditCard is another class where card method is defined
 
     public CreditCardManager() {
         this.creditCard = new CreditCard(); // Assuming CreditCard has a default constructor
     }
 
-    public Customer createCustomer(int customerId, String customerName, String customerEmail) {
+    public Customer createCustomer(int customerId, String customerName, String customerEmail) throws CustomerValidationException, CustomerValidationException {
         // Create a customer using the provided data
         Customer customer = Customer.createCustomer(customerId, customerName, customerEmail);
         return customer;
