@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 public class CreditCard {
-    private static List<Map<List<Integer>, List<String>>> dataList = new ArrayList<>();
+    private static List<Map<List<Integer>, List<String>>> dataList = new ArrayList<>(); // Static variable
 
-    public static boolean card(int id, String name, String email) {
+    public static synchronized boolean card(int id, String name, String email) {
         // Check if the ID already exists in the list
         for (Map<List<Integer>, List<String>> map : dataList) {
             for (List<Integer> ids : map.keySet()) {
                 if (ids.contains(id)) {
-                    System.out.println(dataList);
                     throw new IllegalArgumentException("ID " + id + " already exists");
                 }
             }
@@ -34,14 +31,15 @@ public class CreditCard {
         dataMap.put(idList, nameEmailList);
 
         // Adding the map to the list
-
-
-        System.out.println("Credit card Assigned..");
-        return dataList.add(dataMap);
+        synchronized (dataList) {
+            return dataList.add(dataMap);
+        }
     }
 
     public static void clearDataList() {
-        dataList.clear();
+        synchronized (dataList) {
+            dataList.clear();
+        }
     }
 }
 

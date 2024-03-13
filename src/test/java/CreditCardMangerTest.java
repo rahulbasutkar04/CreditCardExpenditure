@@ -32,11 +32,14 @@ public class CreditCardMangerTest {
     }
 
     @Test
-    void shouldAbleToMakeTransactions() {
-        CreditCardManager creditCardManager = new CreditCardManager();
+    void shouldAbleToMakeTransactions() throws CustomerValidationException {
 
+        CreditCardManager creditCardManager = new CreditCardManager();
+        Customer customer = Customer.createCustomer(1, "John Doe", "abc@gmail.com");
         assertTrue(creditCardManager.MakeTransactions(Category.BOOKS, 1000.0, Month.MARCH));
-        assertTrue(creditCardManager.MakeTransactions(Category.BOOKS, 2000.0, Month.MARCH));
+        assertTrue(creditCardManager.MakeTransactions(Category.ELECTRONICS, 2000.0, Month.MARCH));
+        assertTrue(creditCardManager.MakeTransactions(Category.CLOTHING, 800, Month.MARCH));
+        assertTrue(creditCardManager.MakeTransactions(Category.GROCERY, 200.0, Month.MARCH));
 
 
     }

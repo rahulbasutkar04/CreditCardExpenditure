@@ -1,14 +1,12 @@
 package models;
 
+import Exception.CustomerValidationException;
+
 import java.time.Month;
 
-import models.CreditCard;
-import models.Customer;
-import Exception.*;
-import models.Transaction;
-
 public class CreditCardManager {
-     int cutomerId;
+    private int customerId; // Correct variable name
+
     private static CreditCard creditCard; // Assuming CreditCard is another class where card method is defined
 
     public CreditCardManager() {
@@ -17,6 +15,7 @@ public class CreditCardManager {
 
     public Customer createCustomer(int customerId, String customerName, String customerEmail) throws CustomerValidationException {
         // Create a customer using the provided data
+        this.customerId = customerId; // Assign the customerId to the customerId variable
         Customer customer = Customer.createCustomer(customerId, customerName, customerEmail);
         return customer;
     }
@@ -30,10 +29,7 @@ public class CreditCardManager {
     }
 
     public boolean MakeTransactions(Category category, double amount, Month month) {
-        Transaction transaction = new Transaction(this.cutomerId); // Assuming you have customerId available
+        Transaction transaction = new Transaction(this.customerId); // Assuming you have customerId available
         return transaction.perform(category, amount, month);
     }
-
-
-
 }
