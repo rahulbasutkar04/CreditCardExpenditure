@@ -1,7 +1,9 @@
+import models.Category;
 import models.Customer;
 import models.CreditCardManager;
 import org.junit.jupiter.api.Test;
-import  Exception.*;
+import Exception.*;
+
 import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,21 +30,15 @@ public class CreditCardMangerTest {
 
 
     }
-     @Test
-      void shouldAbleToMakeTransactions(){
-             CreditCardManager creditCardManager=new CreditCardManager();
+
+    @Test
+    void shouldAbleToMakeTransactions() {
+        CreditCardManager creditCardManager = new CreditCardManager();
+
+        assertTrue(creditCardManager.MakeTransactions(Category.BOOKS, 1000.0, Month.MARCH));
+        assertTrue(creditCardManager.MakeTransactions(Category.BOOKS, 2000.0, Month.MARCH));
 
 
-
-             assertTrue(  creditCardManager.MakeTransactions("groceries",1000.0, Month.MARCH ));
-
-
-
-
-
-
-
-
-       }
+    }
 }
 

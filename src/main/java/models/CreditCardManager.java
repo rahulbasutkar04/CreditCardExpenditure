@@ -8,13 +8,14 @@ import Exception.*;
 import models.Transaction;
 
 public class CreditCardManager {
+     int cutomerId;
     private static CreditCard creditCard; // Assuming CreditCard is another class where card method is defined
 
     public CreditCardManager() {
         this.creditCard = new CreditCard(); // Assuming CreditCard has a default constructor
     }
 
-    public Customer createCustomer(int customerId, String customerName, String customerEmail) throws CustomerValidationException, CustomerValidationException {
+    public Customer createCustomer(int customerId, String customerName, String customerEmail) throws CustomerValidationException {
         // Create a customer using the provided data
         Customer customer = Customer.createCustomer(customerId, customerName, customerEmail);
         return customer;
@@ -28,7 +29,11 @@ public class CreditCardManager {
         return creditCard.card(id, name, email); // Assuming card method takes these parameters
     }
 
-    public boolean MakeTransactions( String grocery, double amount, Month month) {
-        return Transaction.perform(grocery,amount,month);
+    public boolean MakeTransactions(Category category, double amount, Month month) {
+        Transaction transaction = new Transaction(this.cutomerId); // Assuming you have customerId available
+        return transaction.perform(category, amount, month);
     }
+
+
+
 }
