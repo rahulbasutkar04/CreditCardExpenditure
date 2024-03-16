@@ -26,7 +26,6 @@ public class Customer {
 
         return new Customer(id, name, email);
     }
-
     private Customer(int id, String name, String email) {
         this.id = id;
         this.name = name;

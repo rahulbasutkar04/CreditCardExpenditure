@@ -8,7 +8,6 @@ public class CreditCard {
     private static List<Map<List<Integer>, List<String>>> dataList = new ArrayList<>(); // Static variable
 
     public static synchronized boolean card(int id, String name, String email) {
-        // Check if the ID already exists in the list
         for (Map<List<Integer>, List<String>> map : dataList) {
             for (List<Integer> ids : map.keySet()) {
                 if (ids.contains(id)) {
@@ -41,5 +40,7 @@ public class CreditCard {
             dataList.clear();
         }
     }
+
+
 }
 
