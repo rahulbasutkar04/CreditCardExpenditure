@@ -1,10 +1,7 @@
 package models;
 
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UnusualSpendAnalyzer {
     static Map<Integer, List<TransactionInfo>> previousMonthTransactions = new HashMap<>();
@@ -95,6 +92,22 @@ public class UnusualSpendAnalyzer {
         }
 
         return total;
+    }
+
+    public Map<String, Integer> currentMonthTotalByCategory(Map<Integer, List<TransactionInfo>> currentMonthTransactions) {
+        Map<String, Integer> totalByCategory = new LinkedHashMap<>();
+        // Iterate over transactions for each customer
+        for (List<TransactionInfo> transactions : currentMonthTransactions.values()) {
+            for (TransactionInfo transaction : transactions) {
+                String category = transaction.getGrocery(); // Assuming 'grocery' represents the category
+                double amount = transaction.getAmount();
+
+                // Update the total for the current category
+                totalByCategory.put(category, totalByCategory.getOrDefault(category, 0) + (int) amount);
+            }
+        }
+
+        return totalByCategory;
     }
 }
 

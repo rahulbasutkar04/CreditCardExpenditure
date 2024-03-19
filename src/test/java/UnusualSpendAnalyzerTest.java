@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Month;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import Exception.*;
@@ -91,9 +91,43 @@ public class UnusualSpendAnalyzerTest {
 
         // Calculate total spend for each month
         unusualSpendAnalyzer.calculate(Transaction.getTransactionsByCustomerId());
-        int actual= unusualSpendAnalyzer.currentMonthTotal(unusualSpendAnalyzer.getPreviousMonthTransactions());
+        int actual= unusualSpendAnalyzer.PrevMonthTotal(unusualSpendAnalyzer.getPreviousMonthTransactions());
 
         assertEquals(2000,actual);
+
+    }
+
+
+    @Test
+    void shouldAbleToCalculateTotalByCategoryInCurrentMonth() throws CustomerValidationException {
+        Customer customer = Customer.createCustomer(1, "xyz", "rahulbasutkar@gmail.com");
+        CreditCardManager.assignCard(customer);
+
+        // Perform transactions for February and March
+        Transaction transaction = new Transaction(customer.getId());
+        transaction.perform(Category.BOOKS, 1200, Month.MARCH);
+        transaction.perform(Category.BOOKS, 200, Month.MARCH);
+        transaction.perform(Category.GROCERY, 1000, Month.MARCH);
+        transaction.perform(Category.ELECTRONICS, 800, Month.MARCH);
+
+        transaction.perform(Category.BOOKS, 600, Month.FEBRUARY);
+        transaction.perform(Category.GROCERY, 900, Month.FEBRUARY);
+        transaction.perform(Category.ELECTRONICS, 500, Month.FEBRUARY);
+
+        // Create an UnusualSpendAnalyzer instance
+        UnusualSpendAnalyzer unusualSpendAnalyzer = new UnusualSpendAnalyzer();
+
+        // Calculate total spend for each month
+        unusualSpendAnalyzer.calculate(Transaction.getTransactionsByCustomerId());
+         Map<String,Integer> expected=new LinkedHashMap<>();
+         expected.put("BOOKS",1400);
+         expected.put("GROCERY",1000);
+         expected.put("ELECTRONICS",800);
+        Map<String, Integer> TotalByCategoryActual=unusualSpendAnalyzer.currentMonthTotalByCategory(unusualSpendAnalyzer.getCurrentMonthTransactions());
+
+        assertEquals(expected,TotalByCategoryActual);
+
+
 
     }
 
