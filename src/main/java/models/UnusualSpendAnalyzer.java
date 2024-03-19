@@ -83,5 +83,18 @@ public class UnusualSpendAnalyzer {
 
         return total;
     }
+
+    public int PrevMonthTotal(Map<Integer, List<TransactionInfo>> previousMonthTransactions) {
+        int total = 0;
+
+        // Iterate over transactions for each customer
+        for (List<TransactionInfo> transactions : previousMonthTransactions.values()) {
+            for (TransactionInfo transaction : transactions) {
+                total += transaction.getAmount(); // Add the amount to the total
+            }
+        }
+
+        return total;
+    }
 }
 
